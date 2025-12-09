@@ -1,29 +1,27 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  </head>
-  <body>
-    {% include "components/navbar.html.jinja"%}
-    {# <h1 class="text-3xl font-bold underline"> #}
-      {# Homepage #}
-    {# </h1> #}
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-     
-  <div class="bg-gray-200 py-8 px-8 text-center rounded-xl w-24 h-48 mx-auto flex justify-center w-96 text-6xl">50% OFF FIRST TIME BUYERS</div>
-    {% for x in range (5) %}
-        <li>{{ x }}</li>
-    {% endfor %}
 
-    {% if 0 == 1%}
-    <p>Hello</p>
-    {% endif %}
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body>
+  {% include "components/navbar.html.jinja"%}
+  <h1 class="text-3xl font-bold underline">
+    Homepage
+  </h1>
+
+  {% for x in range (5) %}
+  <li>{{ x }}</li>
+  {% endfor %}
+
+  {% if 0 == 1%}
+  <p>Hello</p>
+  {% endif %}
+
+
+</body>
+
 </html>
