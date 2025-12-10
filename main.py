@@ -7,7 +7,7 @@ from dynaconf import Dynaconf
 
 app = Flask(__name__)
 
-config = Dynaconf(settings_file=["setting.toml"])
+config = Dynaconf(settings_file=["settings.toml"])
 
 def connect_db():
     conn = pymysql.connect(
@@ -16,7 +16,7 @@ def connect_db():
         password=config.password,
         database="swhite2_digital_disc",
         autocommit=True,
-        cursorclass=pymysql.cursor.DictCursor
+        cursorclass=pymysql.cursors.DictCursor
 
     )
     return conn
@@ -38,4 +38,4 @@ def browse():
     result = cursor.fetchall()
 
     connection.close()
-    return render_template("browse.html.jinja")
+    return render_template("browse.html.jinja", products=result)
