@@ -7,7 +7,32 @@
   </head>
   <body>
  {% include "components/navbar.html.jinja"%}
+ {%for message in get_flashed_messages()%}
+    <li>{{message}}</li>
+ {%endfor%}
 
- 
+<form class="flex flex-col gap-2 border"method="post">
+
+    <label>Name</label>
+    <input name="name" required>
+    
+    <label>Password</label>
+    <input name="password" required type="Password">
+
+    <label>Password</label>
+    <input name="confirm_password" required type="Password">
+    
+
+
+    <label>Email</label>
+    <input name="email" required type="email">
+
+    <label>Address</label>
+    <input name="address" required>
+
+    <button type="submit">Register</button>
+<div>
+</form>
+
   </body>
 </html>
