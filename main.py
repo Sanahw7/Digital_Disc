@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, flash, redirect, abort
-from flask_login import LoginManager, login_user, logout_user, login_required
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 import pymysql
 
 from dynaconf import Dynaconf
@@ -91,6 +91,41 @@ def product_page(product_id):
 
     return render_template("product.html.jinja", product=result)
 
+    @app.route("/product/<product_id>")
+    @login_required
+    def add_to_cart(product_id):
+        connection = connect_db()
+        cursor = connection.cursor()
+        cursor.execute("""INSERT INTO `Cart` ()`Quantity`, `ProductID`, ``UserID
+        
+        """)
+
+        connection.close()
+
+        return redirect('/cart')
+
+@app.route("/product/<product_id>/add_to_cart", methods=["POST"])
+@login_required
+def add_to_cart(product_id):
+
+    quantity = request.form['qty']
+
+    connection = connect_db()
+
+    cursor = connection.cursor()
+    
+    cursor.execute(""" 
+                   INSERT INTO Cart (Quantity, ProductID, UserID) 
+                   VALUES (%s, %s, %s)
+                   ON DUPLICATE KEY UPDATE 
+                   Quantity = Quantity + %s
+                  """, (quantity, product_id, current_user.id, quantity ))
+
+    connection.close()
+
+    return redirect("/cart")
+
+
 
 
 
@@ -164,3 +199,22 @@ def register():
 def logout():
     logout_user()    
     return redirect("/")
+
+@app.route('/cart')
+@login_required
+def cart():
+    connection = connect_db()
+
+    cursor = connection.cursor()
+
+    cursor.execute("""
+    SELECT * FROM `Cart`
+    JOIN `Product` ON `Product`. `ID` = `Cart`. `ProductID`
+    WHERE `UserID` = %s
+    """, (current_user.id))
+    results = cursor.fetchall()
+
+    connection.close()
+
+
+    return render_template("cart.html.jinja", cart =  results)
