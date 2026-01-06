@@ -231,8 +231,29 @@ def update_cart(product_id):
         SET `Quantity` =%s
         WHERE `ProductID` = %s AND `UserID` =%s
     """, (new_qty, product_id, current_user.id))
+
+    
     
     connection.close()
 
     return redirect('/cart')
+
+@app.route('/cart/<product_id>/remove_qty', methods=["POST"])
+@login_required
+def remove_cart(product_id):
+
+    connection = connect_db()
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        DELETE `Cart`
+        WHERE `ProductID` = %s AND `UserID` =%s
+    """, ( product_id, current_user.id))
+
+    
+    
+    connection.close()
+
+    return redirect('/cart')
+
 
