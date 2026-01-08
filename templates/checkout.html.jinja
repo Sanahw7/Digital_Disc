@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body>
+   {% include "components/navbar.html.jinja"%}
+  <main class=" grid grid-cols-2 flex pt-6">
+  <div>
+  {% for x in cart %}
+
+  <div class="flex gap-4 p-8 pr-4">
+        <img class="w-64 rounded-lg" src="{{x['Image']}}">
+        
+  <div class="flex flex-col items-end">
+  <div class="font-bold text-lg w-full">{{x["Name"]}}</div>
+  <form method="post" action="/cart/{{x['ProductID']}}/update_qty">
+        <input name="qty" type="number" value="{{x['Quantity']}}">
+        <button class="border" type="submit">Total Items</button>
+       
+        </form>
+        <br>
+        
+        <form method="post" action="/cart/{{x['ProductID']}}/remove_qty">
+        <button class="border" type="submit">Remove</button>
+        </form>
+
+
+        <br>
+        
+         <div class="text-xl">$ {{x ['Price'] * x['Quantity']}}</div>
+  
+  </div>
+  
+  
+  <div class="text-bold">${{x["Price"]}}</div>
+  
+  {# WHERE THE FORM WAS B4 #}
+  
+ </div>
+  {%endfor%}
+  </div>
+
+  <div class=" font-bold text-lg border-2 max-w-88 max-h-88 pt-6 flex flex-col">
+   <form class="flex-1" method="post">
+   
+    <label>Email</label>
+    <input name="email" required type="email">
+    <br>
+    <br>
+
+     <label>Address</label>
+    <input name="address" required>
+    <br>
+    <br>
+   
+   </form>
+   <form method="post" class="text-right">
+    <button class="border " type="submit">place order</button>
+
+   </form>
+  
+  </div>
+  </main>
+  </body>
+</html>
