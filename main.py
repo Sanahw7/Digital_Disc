@@ -302,3 +302,30 @@ def checkout ():
 @login_required
 def Thanks():
     return render_template("Thankyou.html.jinja")
+
+
+
+@app.route('/OrderTracking')
+@login_required
+def Order():
+
+    connection = connect_db()
+
+    cursor = connection.cursor()
+    
+    cursor.execute("""
+    SELECT 
+    `Sale` . `ID`,
+    `Sale`.`Timestamp`,
+    SUM(`SaleProduct` . `Quantity`) AS 'Quantity',
+    SUM(`SaleProduct` . `Quantity` * `Product` . `Price`) AS 'Total'
+    
+    FROM `Sale`
+    JOIN `SaleProduct` ON `SaleProduct`. `SaleID` = `Sale` . `ID`
+    JOIN `Product` ON `Product` . `ID` = `SaleProduct` . `ProductID`
+    WHERE `UserID` =%s
+    GROUP BY `Sale`. `ID`;
+    """, (current_user.id))
+    results = cursor.fetchall()
+
+    return render_template("OrderTracking.html.jinja", orders = results)
