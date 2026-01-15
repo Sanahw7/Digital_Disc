@@ -15,7 +15,6 @@
     {{product['Name']}}
   </p>
   <br>
-  <br>
 
   <div class="grid grid-cols-2 max-w-5xl ml-4">
   
@@ -38,15 +37,51 @@
 </form>
   </div>
 
-  <div class="font-bold text-2xl ml-6 ">ABOUT THIS ALBUM</div>
-  <p class="text-xl ml-6">
+  <div class="font-bold text-2xl ml-5 ">ABOUT THIS ALBUM</div>
+  <p class="text-xl ml-5">
     {{product['Description']}}
   </p>
 
+  
+
+ <br>
   <br>
 
-  <br>
-  <br>
+ 
+ 
+<form class=" ml-5 pb-19 font-bold flex flex-col" method="POST" action="/product/{{product['ID']}}/review"> 
+
+
+<input type="radio" name="Rating" value="1"><label>1</label>
+<input type="radio" name="Rating" value="2"><label>2</label>
+<input type="radio" name="Rating" value="3"><label>3</label>
+<input type="radio" name="Rating" value="4"><label>4</label>
+<input type="radio" name="Rating" value="5"><label>5</label>
+
+<textarea class="border-2 grid justify-items-start" name="comments"></textarea>
+<button type="submit">POST</button>
+
+ <p class="font-bold text-2xl pt-7  overline"> Top Reviews</p>
+</div>
+
+
+</form>
+
+  {%for x in reviews %}
+
+<div class="ml-5 flex flex-row gap-4 pb-7 text-xl">
+<div class="">{{x['Name']}}:</div>
+
+<div class="">{{x['comment']}}</div>
+<div class="">{{x['rating']}}</div>
+<div class="">{{x['ProductID']}}</div>
+
+<div class="">{{x['timestamp'].strftime('%m/%d/%Y %-I:%M %p')}}</div>
+
+</div>
+
+
+  {%endfor%}
 
 
 
