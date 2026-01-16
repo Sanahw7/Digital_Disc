@@ -345,4 +345,10 @@ def Order():
 
     return render_template("OrderTracking.html.jinja", orders = results)
 
+@app.route('/404')
+@login_required
+def error():
+    return render_template("404.html.jinja")
+
+
 

@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-sky-300">
+    {% include "components/navbar.html.jinja"%}
+
+
+
+    <main class="flex-col justify-center text-3xl">
+
+        <p class="font-bold">404 ERROR PAGE</p>
+        <p>NOT FOUND</p>
+        <p class="text-xl">You might've mispelled something or The product you are looking for doesn’t exist or may have
+            been removed. </p>
+        <p>
+            {% if error and error.description %}
+            {{ error.description }}
+            {% else %}
+
+            {% endif %}
+        </p>
+
+
+
+    </main>
+
+</body>
+
+</html>
