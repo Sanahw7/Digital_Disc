@@ -124,18 +124,20 @@ def add_to_cart(product_id):
 @login_required
 def Review1(product_id):
 
-    RV = request.form['rev']
+    rating = request.form ["Rating"]
 
-    connection =  connect_db()
+    comment = request.form ["comments"]
+
+    connection = connect_db()
 
     cursor = connection.cursor()
     
     cursor.execute("""
-    INSERT INTO Review (userID, comment, rating, ProductID )
+    INSERT INTO Reviews (`userID`, `comment`, `rating`, `ProductID`)
     VALUES (%s, %s, %s, %s)
     
         
-    """,(current_user.id, product_id))
+    """,(current_user.id, comment, rating, product_id))
 
     return redirect(f"/product/{product_id}")
 

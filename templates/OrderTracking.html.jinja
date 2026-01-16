@@ -9,24 +9,32 @@
 
 <body class="bg-teal-50">
   {% include "components/navbar.html.jinja"%}
-  <p class="text-center font-bold text-2xl pt-8">Track your order</p>
-  <main class="flex flex-col-reverse justify-center pt-10">
+  <p class="text-center font-bold text-2xl pt-8 pb-12 ">Track your order</p>
+  <div class="grid grid-cols-6 pb-5 font-bold underline">
+  <p>ID</p>
+  <p>Quantity</p>
+  <p>Price</p>
+  
+  </div>
+  <main class="justify-center">
 
     {%for x in orders%}
-    <div class="flex justify-center gap-7 border-2 ">
+   
+    <div class="grid grid-cols-6 mr-6 ">
 
-      <div class="">{{x['ID']}}</div>
+      <div class="w-48">{{x['ID']}}</div>
 
-      <div class="mr-9">{{x['Quantity']}}</div>
+      <div class="mr-9 w-48 ">{{x['Quantity']}}</div>
       <div class="font-bold">${{x["Total"]}}</div>
       <br>
       <br>
-      <div class="">{{x['Timestamp'].strftime('%m/%d/%Y %I:%M %p')}}</div>
-      <div class="mr-9">{{x['Quantity']}}</div>
+      <div class="w-48 pb-8 font-bold">Time order was placed: {{x['Timestamp'].strftime('%m/%d/%Y %I:%M %p')}}</div>
+      <div class="mr-9">{{x['ProductID']}}</div>
 
 
 
-    </div>
+    </div> 
+
 
 
 
